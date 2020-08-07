@@ -12,6 +12,18 @@ jobs:
       - run:
           name: Build Docker image
           command: docker build -t $IMAGE_NAME:latest .
+  push-image:
+    environment:
+      IMAGE_NAME: anhcao142/circleci-build-by-tag-test
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+            docker push $IMAGE_NAME:latest
 
 workflows:
   version: 2
@@ -21,3 +33,9 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - push-image:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v?(\d+(?:\.\d+)*)$/
