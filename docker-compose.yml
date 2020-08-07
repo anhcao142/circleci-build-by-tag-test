@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    image: anhcao142/simple-web:latest
+    environment:
+      VERSION: ${VERSION}
+    ports:
+      - 5000:5000
+  redis:
+    image: "redis:alpine"
