@@ -1,15 +1,13 @@
 version: 2.1
-
 executors:
   docker-publisher:
     environment:
       IMAGE_NAME: anhcao142/circleci-build-by-tag-test
     docker:
       - image: circleci/buildpack-deps:stretch
-
 jobs:
   build:
-    executors: docker-publisher
+    executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
@@ -24,7 +22,7 @@ jobs:
           paths:
             - ./image.tar
   push-image:
-    executors: docker-publisher
+    executor: docker-publisher
     steps:
       - attach_workspace:
           at: /tmp/workspace
