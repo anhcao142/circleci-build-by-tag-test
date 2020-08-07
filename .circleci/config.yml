@@ -14,9 +14,10 @@ jobs:
           command: docker build -t $IMAGE_NAME:latest .
 
 workflows:
+  version: 2
   main:
     jobs:
-      - build
+      - build:
           filters:
             tags:
               only: /.*/
