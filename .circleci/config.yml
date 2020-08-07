@@ -1,0 +1,22 @@
+version: 2
+
+jobs:
+  build:
+    environment:
+      IMAGE_NAME: anhcao142/circleci-build-by-tag-test
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: docker build -t $IMAGE_NAME:latest .
+
+workflows:
+  main:
+    jobs:
+      - build
+          filters:
+            tags:
+              only: /.*/
