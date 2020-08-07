@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
-            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+            echo "$DOCKERHUB_PASS" | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $IMAGE_NAME:latest
 
 workflows:
@@ -38,4 +38,4 @@ workflows:
             - build
           filters:
             tags:
-              only: /^v?(\d+(?:\.\d+)*)$/
+              only: /^v.*/
