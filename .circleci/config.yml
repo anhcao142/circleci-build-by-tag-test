@@ -42,7 +42,7 @@ jobs:
           command: |
             VERSION=$CIRCLE_TAG
             IFS='.'
-            read -a strarr <<< "$VERSION"
+            read -a strarr \<\<\< "$VERSION"
             MAJOR="${strarr[0]}"
             MINOR="${strarr[1]}"
             PATCH="${strarr[2]}"
