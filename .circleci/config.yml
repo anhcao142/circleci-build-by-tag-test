@@ -17,7 +17,10 @@ jobs:
             MAJOR="$(echo $CIRCLE_TAG | cut -d '.' -f1)"
             MINOR="$(echo $CIRCLE_TAG | cut -d '.' -f2)"
             PATCH="$(echo $CIRCLE_TAG | cut -d '.' -f3)"
-            docker build -t $IMAGE_NAME:$MAJOR -t $IMAGE_NAME:$MAJOR.$MINOR -t $IMAGE_NAME:$MAJOR.$MINOR.$PATCH .
+            echo $MAJOR
+            echo "$MAJOR.$MINOR"
+            echo "$MAJOR.$MINOR.$PATCH"
+            docker build -t $IMAGE_NAME:$MAJOR -t $IMAGE_NAME:"$MAJOR.$MINOR" -t $IMAGE_NAME:"$MAJOR.$MINOR.$PATCH" .
       - run:
           name: Archive Docker image
           command: docker save -o image.tar $IMAGE_NAME
